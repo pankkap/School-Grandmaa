@@ -74,15 +74,21 @@ export const Navbar = () => {
       <nav style={{ backgroundColor: '#ffffff', padding: '12px 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid #e2e8f0', width: '100%' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '24px' }}>
           {/* Brand Logo */}
-          <Link to="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
+          <Link to="/" style={{ display: 'block', textDecoration: 'none', width: '75px', height: '50px', position: 'relative' }}>
             <img
               src="/logo.png"
               alt="Grand Maa's Pre School & Day Care Logo"
               style={{
-                height: '50px',
-                width: 'auto',
-                objectFit: 'contain',
-                mixBlendMode: 'multiply'
+                position: 'absolute',
+                top: '-16px',
+                left: 0,
+                height: '92px',
+                width: '92px',
+                objectFit: 'cover',
+                borderRadius: '50%',
+                mixBlendMode: 'multiply',
+                filter: 'drop-shadow(0 4px 8px rgba(0, 0, 0, 0.08))',
+                zIndex: 100
               }}
             />
           </Link>
