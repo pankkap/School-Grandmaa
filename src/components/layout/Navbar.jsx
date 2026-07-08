@@ -24,13 +24,13 @@ export const Navbar = () => {
     {
       name: 'Programs',
       dropdown: [
-        { name: 'Daycare', path: '/programs' },
-        { name: 'Play Group', path: '/programs' },
-        { name: 'Pre-Nursery', path: '/programs' },
-        { name: 'Nursery', path: '/programs' },
-        { name: 'Kindergarten', path: '/programs' },
-        { name: 'Toddler Program', path: '/programs' },
-        { name: 'Teachers Training Program', path: '/programs' },
+        { name: 'Daycare', path: '/programs/daycare' },
+        { name: 'Play Group', path: '/programs/playgroup' },
+        { name: 'Pre-Nursery', path: '/programs/pre-nursery' },
+        { name: 'Nursery', path: '/programs/nursery' },
+        { name: 'Kindergarten', path: '/programs/kindergarten' },
+        { name: 'Toddler Program', path: '/programs/toddler' },
+        { name: 'Teachers Training Program', path: '/programs/teachers-training' },
       ],
     },
     { name: 'Admissions', path: '/admissions' },
@@ -53,10 +53,10 @@ export const Navbar = () => {
           <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flexWrap: 'wrap' }}>
             <span style={{ color: '#ffffff', textTransform: 'uppercase', letterSpacing: '0.1em', fontSize: '9px', opacity: 0.9 }}>For Enquiry:</span>
             <a href="https://wa.me/919899852000" target="_blank" rel="noopener noreferrer" style={{ color: '#ffffff', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '4px' }}>
-              <FaWhatsapp style={{ color: '#25D366', fontSize: '13px' }} /> +91 98998 52000
+              <FaWhatsapp style={{ color: '#25D366', fontSize: '13px' }} /> +91 90000 00000
             </a>
             <a href="https://wa.me/919899664000" target="_blank" rel="noopener noreferrer" style={{ color: '#ffffff', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '4px' }}>
-              <FaWhatsapp style={{ color: '#25D366', fontSize: '13px' }} /> 98996 64000
+              <FaWhatsapp style={{ color: '#25D366', fontSize: '13px' }} /> 90000 00000
             </a>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>

@@ -1,6 +1,22 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { client } from '../sanity/client';
 
+const urlForSanityImage = (source) => {
+  if (!source) return '';
+  if (typeof source === 'string') return source;
+  const assetRef = source?.asset?._ref || source?._ref;
+  if (!assetRef) return '';
+
+  const parts = assetRef.split('-');
+  if (parts.length < 4) return '';
+
+  const id = parts[1];
+  const dimensions = parts[2];
+  const extension = parts[3];
+
+  return `https://cdn.sanity.io/images/k6eifcx4/school-grandmaa/${id}-${dimensions}.${extension}`;
+};
+
 const CMSContext = createContext();
 
 const INITIAL_MOCK_DATA = {
@@ -227,15 +243,15 @@ const INITIAL_MOCK_DATA = {
     siteSettings: {
       schoolName: 'Illusion Play School',
       motto: 'Blooming Hearts, Shining Minds',
-      phone: '+91 98998 52000',
-      email: 'rhythm.futuregeneration@gmail.com',
+      phone: '+91 90000 00000',
+      email: 'grandmaa.playschool@gmail.com',
       address: 'Plot No. 1, Sector 51, Noida, Uttar Pradesh, 201301',
       hours: 'Mon - Fri: 8:30 AM - 7:00 PM | Sat: 8:30 AM - 5:00 PM',
-      whatsappNumber: '919899852000',
-      instagram: 'https://www.instagram.com/rhythmplayschool/',
-      facebook: 'https://www.facebook.com/rhythm.play.school',
-      youtube: 'https://www.youtube.com/channel/UCBqClRm_aRSFliHqgOBOqzw',
-      mapUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14013.111812836696!2d77.35242784534724!3d28.591427181347076!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390cef13e11cfc6b%3A0xe21558bf2a09bd97!2sSector%2051%2C%20Noida%2C%20Uttar%20Pradesh!5e0!3m2!1sen!2sin!4v1719876543210!5m2!1sen!2sin'
+      whatsappNumber: '91900000000',
+      instagram: 'https://www.instagram.com/grandmaaplayschool/',
+      facebook: 'https://www.facebook.com/grandmaa.play.school',
+      youtube: 'https://www.youtube.com/channel/UCBqClR_aRSFliHqgOBOqzw',
+      mapUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14013.111812836696!2d77.35242784534724!3d28.591427181347076!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390cef13e11cfc6b%3A0xe21558bf2a09bd97!2sSector%2051%2C%20Noida%2C%20Uttar%20Pradesh!5e0!3m2!1sen!2sin!4v1719876543210!5m2!1sen!2si'
     },
     starStudent: {
       name: 'Vihaan Roy',
@@ -381,19 +397,91 @@ export const CMSProvider = ({ children }) => {
   };
 
   // Gallery CRUD
-  const addGalleryItem = (item) => {
-    const newItem = { id: `g-${Date.now()}`, date: new Date().toISOString().split('T')[0], ...item };
-    setData(prev => ({
-      ...prev,
-      gallery: [newItem, ...prev.gallery]
-    }));
+  const addGalleryItem = async (item) => {
+    const token = import.meta.env.VITE_SANITY_WRITE_TOKEN;
+    if (useSanity && token) {
+      try {
+        setLoading(true);
+        let assetId = '';
+        
+        // If it is a base64 image, upload it as a Sanity asset
+        if (item.url && item.url.startsWith('data:image/')) {
+          const res = await fetch(item.url);
+          const blob = await res.blob();
+          const asset = await client.assets.upload('image', blob, {
+            filename: `${Date.now()}-gallery.jpg`
+          });
+          assetId = asset._id;
+        }
+
+        // Create the gallery document referencing the asset
+        const doc = await client.create({
+          _type: 'gallery',
+          title: item.title,
+          description: item.description || '',
+          category: item.category,
+          date: new Date().toISOString().split('T')[0],
+          url: assetId ? {
+            _type: 'image',
+            asset: {
+              _type: 'reference',
+              _ref: assetId
+            }
+          } : undefined
+        });
+
+        const resolvedUrl = assetId ? urlForSanityImage({ asset: { _ref: assetId } }) : item.url;
+
+        const resolvedItem = {
+          id: doc._id,
+          title: doc.title,
+          description: doc.description || '',
+          category: doc.category,
+          date: doc.date || new Date().toISOString().split('T')[0],
+          url: resolvedUrl
+        };
+
+        setData(prev => ({
+          ...prev,
+          gallery: [resolvedItem, ...prev.gallery]
+        }));
+      } catch (error) {
+        console.error("Failed to upload image to Sanity:", error);
+        alert("Failed to upload photo to Sanity. Error details: " + error.message);
+      } finally {
+        setLoading(false);
+      }
+    } else {
+      const newItem = { id: `g-${Date.now()}`, date: new Date().toISOString().split('T')[0], ...item };
+      setData(prev => ({
+        ...prev,
+        gallery: [newItem, ...prev.gallery]
+      }));
+    }
   };
 
-  const deleteGalleryItem = (id) => {
-    setData(prev => ({
-      ...prev,
-      gallery: prev.gallery.filter(g => g.id !== id)
-    }));
+  const deleteGalleryItem = async (id) => {
+    const token = import.meta.env.VITE_SANITY_WRITE_TOKEN;
+    if (useSanity && token) {
+      try {
+        setLoading(true);
+        await client.delete(id);
+        setData(prev => ({
+          ...prev,
+          gallery: prev.gallery.filter(g => g.id !== id)
+        }));
+      } catch (error) {
+        console.error("Failed to delete document from Sanity:", error);
+        alert("Failed to delete photo from Sanity. Check write token permissions.");
+      } finally {
+        setLoading(false);
+      }
+    } else {
+      setData(prev => ({
+        ...prev,
+        gallery: prev.gallery.filter(g => g.id !== id)
+      }));
+    }
   };
 
   // Videos CRUD

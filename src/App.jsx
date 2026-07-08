@@ -50,6 +50,7 @@ function App() {
               <Route path="/about" element={<About />} />
               <Route path="/admissions" element={<Admissions />} />
               <Route path="/programs" element={<Programs />} />
+              <Route path="/programs/:programId" element={<Programs />} />
               <Route path="/curriculum" element={<Curriculum />} />
               <Route path="/facilities" element={<Facilities />} />
               <Route path="/gallery" element={<Gallery />} />

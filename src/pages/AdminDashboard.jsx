@@ -52,7 +52,7 @@ export const AdminDashboard = () => {
     setEditingItem(null);
     setNoticeForm({ title: '', content: '', category: 'Academics', isPinned: false, expiryDate: '', attachment: '' });
     setEventForm({ title: '', description: '', date: '', time: '', location: '', banner: 'https://images.unsplash.com/photo-1546410531-bb4caa6b424d?w=800&auto=format&fit=crop', registrationLink: '', countdownTarget: '' });
-    setGalleryForm({ title: '', description: '', url: 'https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?w=800&auto=format&fit=crop', category: 'Playtime' });
+    setGalleryForm({ title: '', description: '', url: '', category: 'Playtime' });
     setVideoForm({ title: '', description: '', youtubeUrl: '', category: 'Campus Tour' });
     setProgramForm({ title: '', ageGroup: '', duration: '', learningObjectives: '', activities: '', image: 'https://images.unsplash.com/photo-1576267423445-b2e0074d68a4?w=800&auto=format&fit=crop', category: 'Early Years' });
     setDownloadForm({ title: '', description: '', fileName: '', fileSize: '1.5 MB', category: 'Admission Documents' });
@@ -826,15 +826,34 @@ export const AdminDashboard = () => {
                     </select>
                   </div>
                   <div className="flex flex-col gap-1">
-                    <label className="font-body text-xs text-slate-500">Unsplash Photo URL Link</label>
+                    <label className="font-body text-xs text-slate-500">Upload Photo File directly</label>
                     <input
-                      type="text"
-                      required
-                      value={galleryForm.url}
-                      onChange={(e) => setGalleryForm({ ...galleryForm, url: e.target.value })}
-                      className="font-body text-xs p-2.5 border border-slate-200 rounded-lg"
+                      type="file"
+                      accept="image/*"
+                      required={!galleryForm.url}
+                      onChange={(e) => {
+                        const file = e.target.files[0];
+                        if (file) {
+                          const reader = new FileReader();
+                          reader.onloadend = () => {
+                            setGalleryForm(prev => ({ ...prev, url: reader.result }));
+                          };
+                          reader.readAsDataURL(file);
+                        }
+                      }}
+                      className="font-body text-xs p-2 border border-slate-200 rounded-lg bg-slate-50 cursor-pointer"
                     />
                   </div>
+                  {galleryForm.url && (
+                    <div className="flex flex-col gap-1 mt-2">
+                      <span className="text-[10px] font-body text-slate-400">Selected Image Preview:</span>
+                      <img
+                        src={galleryForm.url}
+                        alt="Preview"
+                        className="w-full h-32 object-cover rounded-xl border border-slate-200"
+                      />
+                    </div>
+                  )}
                 </div>
               )}
 
