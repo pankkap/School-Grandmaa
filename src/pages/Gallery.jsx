@@ -1,10 +1,30 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaCamera, FaTimes, FaExpand } from 'react-icons/fa';
-import { useCMS } from '../context/CMSContext';
+
+// Dummy gallery data – 15 kids school playing photos (reliable CDN URLs)
+const dummyGallery = [
+  { id: 'g-1',  title: 'Fun in the Classroom',  description: 'Children enjoying a colourful activity session.', url: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800&q=80', category: 'Classroom', date: '2026-01-01' },
+  { id: 'g-2',  title: 'Outdoor Playtime',       description: 'Kids running and laughing in the school ground.', url: 'https://images.unsplash.com/photo-1544717297-fa95b6ee9643?w=800&q=80', category: 'Playground', date: '2026-01-02' },
+  { id: 'g-3',  title: 'Art & Craft Day',        description: 'Little hands creating beautiful artwork.', url: 'https://images.unsplash.com/photo-1560807707-8cc77767d783?w=800&q=80', category: 'Art', date: '2026-01-03' },
+  { id: 'g-4',  title: 'Story Time',             description: 'Children listening to an exciting story.', url: 'https://images.unsplash.com/photo-1509062522246-3755977927d7?w=800&q=80', category: 'Classroom', date: '2026-01-04' },
+  { id: 'g-5',  title: 'Garden Learning',        description: 'Exploring nature in the school garden.', url: 'https://images.unsplash.com/photo-1596464716127-f2a82984de30?w=800&q=80', category: 'Playground', date: '2026-01-05' },
+  { id: 'g-6',  title: 'Music & Dance',          description: 'Joyful children singing and dancing together.', url: 'https://images.unsplash.com/photo-1516627145497-ae6968895b74?w=800&q=80', category: 'Events', date: '2026-01-06' },
+  { id: 'g-7',  title: 'Painting Session',       description: 'Kids expressing creativity with colours.', url: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80', category: 'Art', date: '2026-01-07' },
+  { id: 'g-8',  title: 'Building Blocks',        description: 'Young engineers constructing with blocks.', url: 'https://images.unsplash.com/photo-1587654780291-39c9404d746b?w=800&q=80', category: 'Classroom', date: '2026-01-08' },
+  { id: 'g-9',  title: 'Sports Day',             description: 'Children competing in a fun sports event.', url: 'https://images.unsplash.com/photo-1526676037777-05a232554f77?w=800&q=80', category: 'Events', date: '2026-01-09' },
+  { id: 'g-10', title: 'Science Fun',            description: 'Little scientists doing simple experiments.', url: 'https://images.unsplash.com/photo-1564981797816-1043664bf78d?w=800&q=80', category: 'Classroom', date: '2026-01-10' },
+  { id: 'g-11', title: 'Lunch Break',            description: 'Happy meal time with friends.', url: 'https://images.unsplash.com/photo-1519861531473-9200262188bf?w=800&q=80', category: 'Playground', date: '2026-01-11' },
+  { id: 'g-12', title: 'Fancy Dress',            description: 'Adorable kids in colourful costumes.', url: 'https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=800&q=80', category: 'Events', date: '2026-01-12' },
+  { id: 'g-13', title: 'Reading Corner',         description: 'Quiet reading time in the library corner.', url: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=80', category: 'Classroom', date: '2026-01-13' },
+  { id: 'g-14', title: 'Circle Time',            description: 'Children gathered for morning circle time.', url: 'https://images.unsplash.com/photo-1543269865-cbf427effbad?w=800&q=80', category: 'Classroom', date: '2026-01-14' },
+  { id: 'g-15', title: 'Slide & Swing',          description: 'Pure joy on the playground equipment.', url: 'https://images.unsplash.com/photo-1472162072942-cd5147eb3902?w=800&q=80', category: 'Playground', date: '2026-01-15' },
+];
+
+const placeholder = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADtH0lMAAAAAXNSR0IArs4c6QAAABxpRE9UAAAAAgAAAAAAAAAaAAAAKAAAAFoAAAAbAAAARQG8cN9AAAAJcEhZcwAADsMAAA7DAcdvqGQAAABYSURBVEhL7c4hDQAgCAMQD3b/1m3g7YwVJkZQpUqQe+uXyB8uHcS7rV9DCC3xkGAGK3WwG4V3hYj8hDgOQJcD+gZzIAU7zJvL+AAAAABJRU5ErkJggg==";
 
 export const Gallery = () => {
-  const { gallery } = useCMS();
+  const gallery = dummyGallery;
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [lightboxIndex, setLightboxIndex] = useState(null);
 
@@ -70,10 +90,11 @@ export const Gallery = () => {
               className="relative rounded-2xl overflow-hidden shadow-soft border border-slate-100 group cursor-pointer h-48 md:h-64"
             >
               <img
-                src={item.url}
+                src={item.url || placeholder}
                 alt={item.title}
                 loading="lazy"
                 className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                onError={(e) => { e.target.src = placeholder; }}
               />
               {/* Overlay */}
               <div className="absolute inset-0 bg-slate-900/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-between p-4 text-white">

@@ -130,19 +130,123 @@ const INITIAL_MOCK_DATA = {
   gallery: [
     {
       id: 'g-1',
-      title: 'Finger Painting Activity',
-      description: 'Illusion children expressing their inner artists with safe organic paints.',
-      url: 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=800&auto=format&fit=crop',
+      title: 'Kid Photo 1',
+      description: 'Indian school children smiling.',
+      url: 'https://via.placeholder.com/800x600?text=Indian+Kid+1',
       category: 'Classroom',
-      date: '2026-06-20'
+      date: '2026-01-01'
     },
     {
       id: 'g-2',
-      title: 'Outdoor Play Molds',
-      description: 'Building castles together in our secure sandbox turf.',
-      url: 'https://images.unsplash.com/photo-1587654780291-39c9404d746b?w=800&auto=format&fit=crop',
+      title: 'Kid Photo 2',
+      description: 'Indian school children playing.',
+      url: 'https://via.placeholder.com/800x600?text=Indian+Kid+2',
       category: 'Playtime',
-      date: '2026-06-25'
+      date: '2026-01-02'
+    },
+    {
+      id: 'g-3',
+      title: 'Kid Photo 3',
+      description: 'Indian kids learning in class.',
+      url: 'https://via.placeholder.com/800x600?text=Indian+Kid+3',
+      category: 'Classroom',
+      date: '2026-01-03'
+    },
+    {
+      id: 'g-4',
+      title: 'Kid Photo 4',
+      description: 'Group activity with Indian children.',
+      url: 'https://via.placeholder.com/800x600?text=Indian+Kid+4',
+      category: 'Art',
+      date: '2026-01-04'
+    },
+    {
+      id: 'g-5',
+      title: 'Kid Photo 5',
+      description: 'Indian kids during a science experiment.',
+      url: 'https://via.placeholder.com/800x600?text=Indian+Kid+5',
+      category: 'Science',
+      date: '2026-01-05'
+    },
+    {
+      id: 'g-6',
+      title: 'Kid Photo 6',
+      description: 'Kids reading books in a circle.',
+      url: 'https://via.placeholder.com/800x600?text=Indian+Kid+6',
+      category: 'Reading',
+      date: '2026-01-06'
+    },
+    {
+      id: 'g-7',
+      title: 'Kid Photo 7',
+      description: 'Outdoor playtime with Indian children.',
+      url: 'https://via.placeholder.com/800x600?text=Indian+Kid+7',
+      category: 'Playtime',
+      date: '2026-01-07'
+    },
+    {
+      id: 'g-8',
+      title: 'Kid Photo 8',
+      description: 'Indian kids doing art & craft.',
+      url: 'https://via.placeholder.com/800x600?text=Indian+Kid+8',
+      category: 'Art',
+      date: '2026-01-08'
+    },
+    {
+      id: 'g-9',
+      title: 'Kid Photo 9',
+      description: 'Children participating in music class.',
+      url: 'https://via.placeholder.com/800x600?text=Indian+Kid+9',
+      category: 'Music',
+      date: '2026-01-09'
+    },
+    {
+      id: 'g-10',
+      title: 'Kid Photo 10',
+      description: 'Indian kids in a group circle time.',
+      url: 'https://via.placeholder.com/800x600?text=Indian+Kid+10',
+      category: 'Circle Time',
+      date: '2026-01-10'
+    },
+    {
+      id: 'g-11',
+      title: 'Kid Photo 11',
+      description: 'Kids learning math with blocks.',
+      url: 'https://via.placeholder.com/800x600?text=Indian+Kid+11',
+      category: 'Math',
+      date: '2026-01-11'
+    },
+    {
+      id: 'g-12',
+      title: 'Kid Photo 12',
+      description: 'Indian children during a cooking activity.',
+      url: 'https://via.placeholder.com/800x600?text=Indian+Kid+12',
+      category: 'Cooking',
+      date: '2026-01-12'
+    },
+    {
+      id: 'g-13',
+      title: 'Kid Photo 13',
+      description: 'Kids playing in the school garden.',
+      url: 'https://via.placeholder.com/800x600?text=Indian+Kid+13',
+      category: 'Garden',
+      date: '2026-01-13'
+    },
+    {
+      id: 'g-14',
+      title: 'Kid Photo 14',
+      description: 'Indian kids doing a science demo.',
+      url: 'https://via.placeholder.com/800x600?text=Indian+Kid+14',
+      category: 'Science',
+      date: '2026-01-14'
+    },
+    {
+      id: 'g-15',
+      title: 'Kid Photo 15',
+      description: 'Children celebrating a cultural event.',
+      url: 'https://via.placeholder.com/800x600?text=Indian+Kid+15',
+      category: 'Culture',
+      date: '2026-01-15'
     }
   ],
   videos: [
@@ -278,14 +382,11 @@ const INITIAL_MOCK_DATA = {
 };
 
 export const CMSProvider = ({ children }) => {
+  // Initialise state – discard any stale persisted data that may have been left over from a previous session.
   const [data, setData] = useState(() => {
-    const saved = localStorage.getItem('illusion_school_cms');
-    if (saved) {
-      try {
-        return JSON.parse(saved);
-      } catch (e) {
-        console.error('Failed to parse local storage', e);
-      }
+    // If the key exists, remove it now (synchronous) before returning mock data.
+    if (typeof window !== 'undefined' && localStorage.getItem('illusion_school_cms')) {
+      localStorage.removeItem('illusion_school_cms');
     }
     return INITIAL_MOCK_DATA;
   });
@@ -293,7 +394,7 @@ export const CMSProvider = ({ children }) => {
   const [useSanity, setUseSanity] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  // Sync to local storage
+  // Sync the (now‑clean) data back to local storage for future sessions.
   useEffect(() => {
     localStorage.setItem('illusion_school_cms', JSON.stringify(data));
   }, [data]);
@@ -324,15 +425,32 @@ export const CMSProvider = ({ children }) => {
       const sanityHomepage = await client.fetch(`*[_type == "homepageSettings"][0]`);
 
       setData((prev) => ({
-        programs: sanityPrograms.length ? sanityPrograms : prev.programs,
+        programs: sanityPrograms.length
+          ? sanityPrograms.map(p => ({ ...p, id: p._id || p.id, image: urlForSanityImage(p.image) }))
+          : prev.programs,
         notices: sanityNotices.length ? sanityNotices : prev.notices,
-        events: sanityEvents.length ? sanityEvents : prev.events,
-        gallery: sanityGallery.length ? sanityGallery : prev.gallery,
+        events: sanityEvents.length
+          ? sanityEvents.map(e => ({ ...e, id: e._id || e.id, banner: urlForSanityImage(e.banner) }))
+          : prev.events,
+        gallery: sanityGallery.length
+          ? sanityGallery.map(g => ({
+              ...g,
+              id: g._id || g.id,
+              url: urlForSanityImage(g.url),
+              date: g.date || (g._createdAt ? new Date(g._createdAt).toISOString().split('T')[0] : '')
+            }))
+          : prev.gallery,
         videos: sanityVideos.length ? sanityVideos : prev.videos,
-        faculty: sanityFaculty.length ? sanityFaculty : prev.faculty,
-        testimonials: sanityTestimonials.length ? sanityTestimonials : prev.testimonials,
+        faculty: sanityFaculty.length
+          ? sanityFaculty.map(f => ({ ...f, id: f._id || f.id, image: urlForSanityImage(f.image) }))
+          : prev.faculty,
+        testimonials: sanityTestimonials.length
+          ? sanityTestimonials.map(t => ({ ...t, id: t._id || t.id, parentPhoto: urlForSanityImage(t.parentPhoto) }))
+          : prev.testimonials,
         faq: sanityFAQ.length ? sanityFAQ : prev.faq,
-        blogs: sanityBlogs.length ? sanityBlogs : prev.blogs,
+        blogs: sanityBlogs.length
+          ? sanityBlogs.map(b => ({ ...b, id: b._id || b.id, image: urlForSanityImage(b.image) }))
+          : prev.blogs,
         downloads: sanityDownloads.length ? sanityDownloads : prev.downloads,
         homepageSettings: sanityHomepage ? sanityHomepage : prev.homepageSettings,
       }));
