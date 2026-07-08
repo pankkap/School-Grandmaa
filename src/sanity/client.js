@@ -8,7 +8,7 @@ export const client = projectId
       dataset: import.meta.env.VITE_SANITY_DATASET || 'production',
       useCdn: false, // disable cache to fetch fresh portal edits instantly
       token: import.meta.env.VITE_SANITY_WRITE_TOKEN, // include write token for admin portal upload operations
-      apiVersion: '2026-07-07',
+      apiVersion: '2021-10-21',
     })
   : {
       fetch: async (query) => {
