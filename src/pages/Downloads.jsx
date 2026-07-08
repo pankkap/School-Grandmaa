@@ -110,7 +110,7 @@ export const Downloads = () => {
                       <FaGraduationCap className="text-2xl text-slate-800" />
                       <div className="flex flex-col">
                         <span className="font-heading text-xs font-bold text-slate-900 uppercase tracking-widest">ILLUSION PLAY SCHOOL</span>
-                        <span className="text-[7px] font-body text-slate-400 uppercase tracking-wide">Plot No. 1, Sector 51, Noida</span>
+                        <span className="text-[7px] font-body text-slate-400 uppercase tracking-wide">Plot No. 1, Sector 132, Noida</span>
                       </div>
                     </div>
                     <span className="text-[7px] font-body text-slate-400 border border-slate-200 px-2 py-0.5 rounded uppercase">

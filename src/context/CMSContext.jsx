@@ -96,7 +96,7 @@ const INITIAL_MOCK_DATA = {
     {
       id: 'n-1',
       title: 'Illusion Admissions Open for Academic Year 2026-27!',
-      content: 'We are happy to announce that registrations for Daycare, Play Group, Pre-Nursery, Nursery, and Kindergarten are now open. Limited seats are available to maintain an excellent student-to-teacher ratio. Collect prospectus from the school office in Sector 51, Noida.',
+      content: 'We are happy to announce that registrations for Daycare, Play Group, Pre-Nursery, Nursery, and Kindergarten are now open. Limited seats are available to maintain an excellent student-to-teacher ratio. Collect prospectus from the school office in Sector 132, Noida.',
       date: '2026-07-05',
       category: 'Admissions',
       isPinned: true,
@@ -106,7 +106,7 @@ const INITIAL_MOCK_DATA = {
     {
       id: 'n-2',
       title: 'Noida Security CCTV Feed Live Updates',
-      content: 'Dear Parents, our parent portal app now broadcasts live classroom and playarea security CCTV feeds. Please collect your individual login tokens from the Sector 51 office.',
+      content: 'Dear Parents, our parent portal app now broadcasts live classroom and playarea security CCTV feeds. Please collect your individual login tokens from the Sector 132 office.',
       date: '2026-07-06',
       category: 'Security',
       isPinned: true,
@@ -121,7 +121,7 @@ const INITIAL_MOCK_DATA = {
       description: 'A joyful day filled with splash pool activities, paper boat races, rain dance under the sprinklers, and healthy organic snacks.',
       date: '2026-07-10',
       time: '09:30 AM - 12:30 PM',
-      location: 'Noida Sector 51 Playground',
+      location: 'Noida Sector 132 Playground',
       banner: 'https://images.unsplash.com/photo-1546410531-bb4caa6b424d?w=800&auto=format&fit=crop',
       registrationLink: 'https://forms.gle/illusionsplash2026',
       countdownTarget: '2026-07-10T09:30:00'
@@ -253,7 +253,7 @@ const INITIAL_MOCK_DATA = {
     {
       id: 'v-1',
       title: 'Tour Illusion Play School Noida Campus',
-      description: 'Walk through our safe, vibrant, and air-conditioned classrooms, clean play areas, splash pool, and dining hall in Noida Sector 51.',
+      description: 'Walk through our safe, vibrant, and air-conditioned classrooms, clean play areas, splash pool, and dining hall in Noida Sector 132.',
       youtubeUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
       category: 'Campus Tour',
       date: '2026-05-15'
@@ -319,7 +319,7 @@ const INITIAL_MOCK_DATA = {
     {
       id: 'd-2',
       title: 'Illusion Student Registration Form',
-      description: 'Printable registration form required to apply for daycare or playschool enrollment. Submit physically at Noida Sector 51 reception.',
+      description: 'Printable registration form required to apply for daycare or playschool enrollment. Submit physically at Noida Sector 132 reception.',
       fileName: 'Illusion_Registration_Form.pdf',
       fileSize: '1.1 MB',
       category: 'Admission Documents'
@@ -330,7 +330,7 @@ const INITIAL_MOCK_DATA = {
       {
         id: 'hs-1',
         title: 'Welcome to Illusion Play School',
-        subtitle: 'The best-rated playschool & daycare in Noida Sector 51. Nurturing young minds through interactive play, expert care, and organic meals.',
+        subtitle: 'The best-rated playschool & daycare in Noida Sector 132. Nurturing young minds through interactive play, expert care, and organic meals.',
         ctaText: 'Schedule a Tour',
         ctaLink: '/contact',
         image: '/slider1.png'
@@ -349,7 +349,7 @@ const INITIAL_MOCK_DATA = {
       motto: 'Blooming Hearts, Shining Minds',
       phone: '+91 90000 00000',
       email: 'grandmaa.playschool@gmail.com',
-      address: 'Plot No. 1, Sector 51, Noida, Uttar Pradesh, 201301',
+      address: 'Plot No. 1, Sector 132, Noida, Uttar Pradesh, 201301',
       hours: 'Mon - Fri: 8:30 AM - 7:00 PM | Sat: 8:30 AM - 5:00 PM',
       whatsappNumber: '91900000000',
       instagram: 'https://www.instagram.com/grandmaaplayschool/',
@@ -434,11 +434,11 @@ export const CMSProvider = ({ children }) => {
           : prev.events,
         gallery: sanityGallery.length
           ? sanityGallery.map(g => ({
-              ...g,
-              id: g._id || g.id,
-              url: urlForSanityImage(g.url),
-              date: g.date || (g._createdAt ? new Date(g._createdAt).toISOString().split('T')[0] : '')
-            }))
+            ...g,
+            id: g._id || g.id,
+            url: urlForSanityImage(g.url),
+            date: g.date || (g._createdAt ? new Date(g._createdAt).toISOString().split('T')[0] : '')
+          }))
           : prev.gallery,
         videos: sanityVideos.length ? sanityVideos : prev.videos,
         faculty: sanityFaculty.length
@@ -521,7 +521,7 @@ export const CMSProvider = ({ children }) => {
       try {
         setLoading(true);
         let assetId = '';
-        
+
         // If it is a base64 image, upload it as a Sanity asset
         if (item.url && item.url.startsWith('data:image/')) {
           const res = await fetch(item.url);

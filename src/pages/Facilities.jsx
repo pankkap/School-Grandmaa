@@ -8,25 +8,25 @@ export const Facilities = () => {
       title: "Smart Colorful Classrooms",
       desc: "Fully air-conditioned spaces with child-safe round edge furniture, digital learning smart screens, and rich sensory toy shelves.",
       icon: <FaGraduationCap className="text-pink-500" />,
-      image: "https://images.unsplash.com/photo-1576267423445-b2e0074d68a4?w=600&auto=format&fit=crop"
+      image: "https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=600&auto=format&fit=crop&q=80"
     },
     {
       title: "Monsoon Splash Pool",
       desc: "A shallow, hygienic filtration splash pool for water play, bubble blowing activities, and summer cooling fun.",
       icon: <FaWater className="text-sky-500" />,
-      image: "https://images.unsplash.com/photo-1546410531-bb4caa6b424d?w=600&auto=format&fit=crop"
+      image: "https://images.unsplash.com/photo-1601946426009-b685c1b0b4fc?w=600&auto=format&fit=crop&q=80"
     },
     {
       title: "Lush Playpark & Sandbox",
       desc: "Equipped with shock-absorbent turf mats, slides, sensory sand pit pools, swings, and gardening patches for exploration.",
       icon: <FaTree className="text-emerald-500" />,
-      image: "https://images.unsplash.com/photo-1596464716127-f2a82984de30?w=600&auto=format&fit=crop"
+      image: "https://images.unsplash.com/photo-1536437075651-01d675529a3a?w=600&auto=format&fit=crop&q=80"
     },
     {
       title: "Secure Transport Services",
       desc: "GPS enabled school buses equipped with speed locks, female bus monitors, and real-time pickup/drop coordinates.",
       icon: <FaBusAlt className="text-yellow-600" />,
-      image: "https://images.unsplash.com/photo-1557223562-6c77ef16210f?w=600&auto=format&fit=crop"
+      image: "https://images.unsplash.com/photo-1557223562-6c77ef16210f?w=600&auto=format&fit=crop&q=80"
     }
   ];
 

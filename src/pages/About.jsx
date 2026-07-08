@@ -302,7 +302,7 @@ export const About = () => {
               transition={{ duration: 0.6 }}
             >
               <img
-                src="/building.png"
+                src="/building_new.png"
                 alt="Grand Maa's Pre School Playzone Building"
                 className="w-full rounded-3xl shadow-soft object-cover"
                 style={{ borderRadius: '24px' }}

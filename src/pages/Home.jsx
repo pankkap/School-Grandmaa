@@ -61,25 +61,25 @@ export const Home = () => {
     {
       title: "Child Friendly Infrastructure",
       desc: "Grand Maa's Pre School's child-friendly infrastructure prioritizes holistic development, fostering a love for learning and a sense of belonging in every child who walks through its doors.",
-      image: "https://rhythmplayschool.com/assets/images/about/chilcare%20friendly%20infrastructure.png",
+      image: "https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=600&auto=format&fit=crop&q=80",
       bg: '#ffebee'
     },
     {
       title: "Play Zone",
       desc: "Our Play Zones are equipped with age-appropriate toys, games and learning materials that encourage sensory exploration, problem-solving and fine motor skills development.",
-      image: "https://rhythmplayschool.com/assets/images/about/playzone.png",
+      image: "https://images.unsplash.com/photo-1536437075651-01d675529a3a?w=600&auto=format&fit=crop&q=80",
       bg: '#f3eafb'
     },
     {
       title: "Water Play Zone",
       desc: "The Water Play Zone at Grand Maa's Pre School is not just a splash of fun; it's an immersive learning experience that fosters exploration, creativity and sensory development in young minds.",
-      image: "https://rhythmplayschool.com/assets/images/about/waterplayzone.png",
+      image: "https://images.unsplash.com/photo-1601946426009-b685c1b0b4fc?w=600&auto=format&fit=crop&q=80",
       bg: '#fff3e0'
     },
     {
       title: "Focus Group Program",
       desc: "Focus Group Program at Grand Maa's Pre School sets the stage for lifelong learning, curiosity, and achievement. It's not just education; it's empowerment tailored to every child's unique journey.",
-      image: "https://rhythmplayschool.com/assets/images/about/focused%20group%20program.png",
+      image: "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=600&auto=format&fit=crop&q=80",
       bg: '#e0f7fa'
     }
   ];
@@ -960,7 +960,7 @@ export const Home = () => {
             {/* Right Column: School Building Picture */}
             <div style={{ flex: 1, width: '100%', borderRadius: '24px', overflow: 'hidden', height: '340px' }}>
               <img 
-                src="/building.png" 
+                src="/building_new.png" 
                 alt="School Building" 
                 style={{ width: '100%', height: '100%', objectFit: 'cover' }}
               />
@@ -1157,7 +1157,7 @@ export const Home = () => {
             <div className="faq-image-column flex justify-center">
               <div className="faq-thumbs">
                 <img
-                  src="/faq.png"
+                  src="/faq_new.png"
                   alt="Frequently Asked Questions - Grand Maa's Pre School"
                   className="rounded-2xl shadow-soft object-cover"
                   style={{ borderRadius: '24px', width: '100%' }}
